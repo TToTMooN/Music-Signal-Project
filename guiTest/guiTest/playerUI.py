@@ -1,0 +1,147 @@
+# -*- coding: utf-8 -*-
+
+# Form implementation generated from reading ui file 'mainwindow.ui'
+#
+# Created by: PyQt4 UI code generator 4.11.4
+#
+# WARNING! All changes made in this file will be lost!
+
+from PyQt4 import QtCore, QtGui
+
+try:
+    _fromUtf8 = QtCore.QString.fromUtf8
+except AttributeError:
+    def _fromUtf8(s):
+        return s
+
+try:
+    _encoding = QtGui.QApplication.UnicodeUTF8
+    def _translate(context, text, disambig):
+        return QtGui.QApplication.translate(context, text, disambig, _encoding)
+except AttributeError:
+    def _translate(context, text, disambig):
+        return QtGui.QApplication.translate(context, text, disambig)
+
+class Ui_MainWindow(object):
+    def setupUi(self, MainWindow):
+        MainWindow.setObjectName(_fromUtf8("MainWindow"))
+        MainWindow.resize(960, 630)
+        self.centralWidget = QtGui.QWidget(MainWindow)
+        self.centralWidget.setObjectName(_fromUtf8("centralWidget"))
+        self.refSlider = QtGui.QSlider(self.centralWidget)
+        self.refSlider.setGeometry(QtCore.QRect(50, 360, 401, 21))
+        self.refSlider.setOrientation(QtCore.Qt.Horizontal)
+        self.refSlider.setObjectName(_fromUtf8("refSlider"))
+        self.refGraph = QtGui.QGraphicsView(self.centralWidget)
+        self.refGraph.setGeometry(QtCore.QRect(50, 40, 401, 291))
+        self.refGraph.setObjectName(_fromUtf8("refGraph"))
+        self.pushButton = QtGui.QPushButton(self.centralWidget)
+        self.pushButton.setGeometry(QtCore.QRect(50, 390, 75, 23))
+        self.pushButton.setObjectName(_fromUtf8("pushButton"))
+        self.userGraph = QtGui.QGraphicsView(self.centralWidget)
+        self.userGraph.setGeometry(QtCore.QRect(480, 40, 401, 291))
+        self.userGraph.setObjectName(_fromUtf8("userGraph"))
+        self.userSlider = QtGui.QSlider(self.centralWidget)
+        self.userSlider.setGeometry(QtCore.QRect(480, 360, 401, 20))
+        self.userSlider.setOrientation(QtCore.Qt.Horizontal)
+        self.userSlider.setObjectName(_fromUtf8("userSlider"))
+        self.refPlayTime = QtGui.QLCDNumber(self.centralWidget)
+        self.refPlayTime.setGeometry(QtCore.QRect(390, 390, 64, 23))
+        self.refPlayTime.setObjectName(_fromUtf8("refPlayTime"))
+        self.userPlayTime = QtGui.QLCDNumber(self.centralWidget)
+        self.userPlayTime.setGeometry(QtCore.QRect(820, 390, 64, 23))
+        self.userPlayTime.setObjectName(_fromUtf8("userPlayTime"))
+        self.pushButton_2 = QtGui.QPushButton(self.centralWidget)
+        self.pushButton_2.setGeometry(QtCore.QRect(140, 390, 75, 23))
+        self.pushButton_2.setObjectName(_fromUtf8("pushButton_2"))
+        self.pushButton_3 = QtGui.QPushButton(self.centralWidget)
+        self.pushButton_3.setGeometry(QtCore.QRect(570, 390, 75, 23))
+        self.pushButton_3.setObjectName(_fromUtf8("pushButton_3"))
+        self.pushButton_4 = QtGui.QPushButton(self.centralWidget)
+        self.pushButton_4.setGeometry(QtCore.QRect(480, 390, 75, 23))
+        self.pushButton_4.setObjectName(_fromUtf8("pushButton_4"))
+        self.label = QtGui.QLabel(self.centralWidget)
+        self.label.setGeometry(QtCore.QRect(50, 430, 81, 31))
+        self.label.setObjectName(_fromUtf8("label"))
+        self.textBrowser = QtGui.QTextBrowser(self.centralWidget)
+        self.textBrowser.setGeometry(QtCore.QRect(110, 430, 141, 31))
+        self.textBrowser.setObjectName(_fromUtf8("textBrowser"))
+        self.label_2 = QtGui.QLabel(self.centralWidget)
+        self.label_2.setGeometry(QtCore.QRect(260, 430, 81, 31))
+        self.label_2.setObjectName(_fromUtf8("label_2"))
+        self.textBrowser_2 = QtGui.QTextBrowser(self.centralWidget)
+        self.textBrowser_2.setGeometry(QtCore.QRect(540, 430, 141, 31))
+        self.textBrowser_2.setObjectName(_fromUtf8("textBrowser_2"))
+        self.label_3 = QtGui.QLabel(self.centralWidget)
+        self.label_3.setGeometry(QtCore.QRect(690, 430, 81, 31))
+        self.label_3.setObjectName(_fromUtf8("label_3"))
+        self.label_4 = QtGui.QLabel(self.centralWidget)
+        self.label_4.setGeometry(QtCore.QRect(480, 430, 81, 31))
+        self.label_4.setObjectName(_fromUtf8("label_4"))
+        self.checkBox = QtGui.QCheckBox(self.centralWidget)
+        self.checkBox.setGeometry(QtCore.QRect(390, 440, 70, 17))
+        self.checkBox.setObjectName(_fromUtf8("checkBox"))
+        self.pushButton_5 = QtGui.QPushButton(self.centralWidget)
+        self.pushButton_5.setGeometry(QtCore.QRect(820, 430, 75, 23))
+        self.pushButton_5.setObjectName(_fromUtf8("pushButton_5"))
+        self.label_5 = QtGui.QLabel(self.centralWidget)
+        self.label_5.setGeometry(QtCore.QRect(50, 20, 201, 16))
+        self.label_5.setObjectName(_fromUtf8("label_5"))
+        self.label_6 = QtGui.QLabel(self.centralWidget)
+        self.label_6.setGeometry(QtCore.QRect(480, 20, 201, 16))
+        self.label_6.setObjectName(_fromUtf8("label_6"))
+        self.tableWidget = QtGui.QTableWidget(self.centralWidget)
+        self.tableWidget.setGeometry(QtCore.QRect(50, 470, 401, 101))
+        self.tableWidget.setObjectName(_fromUtf8("tableWidget"))
+        self.tableWidget.setColumnCount(0)
+        self.tableWidget.setRowCount(0)
+        self.tableWidget_2 = QtGui.QTableWidget(self.centralWidget)
+        self.tableWidget_2.setGeometry(QtCore.QRect(480, 470, 411, 101))
+        self.tableWidget_2.setObjectName(_fromUtf8("tableWidget_2"))
+        self.tableWidget_2.setColumnCount(0)
+        self.tableWidget_2.setRowCount(0)
+        MainWindow.setCentralWidget(self.centralWidget)
+        self.menuBar = QtGui.QMenuBar(MainWindow)
+        self.menuBar.setGeometry(QtCore.QRect(0, 0, 960, 21))
+        self.menuBar.setObjectName(_fromUtf8("menuBar"))
+        self.menuImport = QtGui.QMenu(self.menuBar)
+        self.menuImport.setObjectName(_fromUtf8("menuImport"))
+        MainWindow.setMenuBar(self.menuBar)
+        self.mainToolBar = QtGui.QToolBar(MainWindow)
+        self.mainToolBar.setObjectName(_fromUtf8("mainToolBar"))
+        MainWindow.addToolBar(QtCore.Qt.TopToolBarArea, self.mainToolBar)
+        self.statusBar = QtGui.QStatusBar(MainWindow)
+        self.statusBar.setObjectName(_fromUtf8("statusBar"))
+        MainWindow.setStatusBar(self.statusBar)
+        self.actionImport_Ref_File = QtGui.QAction(MainWindow)
+        self.actionImport_Ref_File.setObjectName(_fromUtf8("actionImport_Ref_File"))
+        self.actionImport_User_File = QtGui.QAction(MainWindow)
+        self.actionImport_User_File.setObjectName(_fromUtf8("actionImport_User_File"))
+        self.menuImport.addSeparator()
+        self.menuImport.addAction(self.actionImport_Ref_File)
+        self.menuImport.addAction(self.actionImport_User_File)
+        self.menuBar.addAction(self.menuImport.menuAction())
+        self.mainToolBar.addSeparator()
+
+        self.retranslateUi(MainWindow)
+        QtCore.QMetaObject.connectSlotsByName(MainWindow)
+
+    def retranslateUi(self, MainWindow):
+        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow", None))
+        self.refGraph.setWhatsThis(_translate("MainWindow", "<html><head/><body><p><br/></p></body></html>", None))
+        self.pushButton.setText(_translate("MainWindow", "Play", None))
+        self.pushButton_2.setText(_translate("MainWindow", "Pause", None))
+        self.pushButton_3.setText(_translate("MainWindow", "Pause", None))
+        self.pushButton_4.setText(_translate("MainWindow", "Play", None))
+        self.label.setText(_translate("MainWindow", "Frequency", None))
+        self.label_2.setText(_translate("MainWindow", "Hz", None))
+        self.label_3.setText(_translate("MainWindow", "Hz", None))
+        self.label_4.setText(_translate("MainWindow", "Frequency", None))
+        self.checkBox.setText(_translate("MainWindow", "Lock time", None))
+        self.pushButton_5.setText(_translate("MainWindow", "Record", None))
+        self.label_5.setText(_translate("MainWindow", "Reference Signal", None))
+        self.label_6.setText(_translate("MainWindow", "User Signal", None))
+        self.menuImport.setTitle(_translate("MainWindow", "Import", None))
+        self.actionImport_Ref_File.setText(_translate("MainWindow", "Import Ref File", None))
+        self.actionImport_User_File.setText(_translate("MainWindow", "Import User File", None))
+

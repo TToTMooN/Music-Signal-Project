@@ -1,0 +1,23 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27004.2005
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "GUIplayer", "GUIplayer\GUIplayer.pyproj", "{30B45526-FBFA-4B86-B5E0-487F8C2E2EEC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{30B45526-FBFA-4B86-B5E0-487F8C2E2EEC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{30B45526-FBFA-4B86-B5E0-487F8C2E2EEC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B6B74A8E-350B-4BBF-96AE-348EFFD9E781}
+	EndGlobalSection
+EndGlobal
