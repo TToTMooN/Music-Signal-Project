@@ -151,7 +151,7 @@ class MainWindow(QtGui.QMainWindow):
             return
 
         metaData = self.metaInformationResolver.metaData()
-
+        print self.metaInformationResolver
         title = metaData.get('TITLE', [''])[0]
         if not title:
             title = self.metaInformationResolver.currentSource().fileName()

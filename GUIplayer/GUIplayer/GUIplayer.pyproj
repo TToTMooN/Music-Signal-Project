@@ -5,7 +5,8 @@
     <ProjectGuid>30b45526-fbfa-4b86-b5e0-487f8c2e2eec</ProjectGuid>
     <ProjectHome>.</ProjectHome>
     <StartupFile>GUIplayer.py</StartupFile>
-    <SearchPath>..\GUIplayer</SearchPath>
+    <SearchPath>
+    </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
     <Name>GUIplayer</Name>
@@ -21,6 +22,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="GUIplayer.py" />
+    <Compile Include="playerUI.py" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in
