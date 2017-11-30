@@ -146,7 +146,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
             if np.max(D[:,i]) > 0.1*max:
                 endpoint = i
                 break
-        timegain = 10.0/431.0
+        # timegain = 100.0/4370.0
         gain = 440.0/163.0
         #Findex is a list showing the frequecy with highest magnitude corresponging to a certain time flag
         librosa.display.specshow(librosa.amplitude_to_db(D,ref=np.max),y_axis='log', x_axis='time')
@@ -271,7 +271,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         self.ref_current_time = time
         displayTime = QtCore.QTime(0,(time / 60000) % 60, (time / 1000) % 60)
         self.refPlayTime.display(displayTime.toString('mm:ss'))
-        timeGain = 431.0/10000.0
+        timeGain = 4370.0/100000.0
         pos = int(time * timeGain)
         freq = "%0.2f" % self.refFreqList[pos]
         self.reffreqtextbox.setText(str(freq))
@@ -280,7 +280,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         time = self.userSlider.value()
         displayTime = QtCore.QTime(0,(time / 60000) % 60, (time / 1000) % 60)
         self.userPlayTime.display(displayTime.toString('mm:ss'))
-        timeGain = 431.0/10000.0
+        timeGain = 4370.0/100000.0
         pos = int(time * timeGain)
         freq = "%0.2f" % self.refFreqList[pos]
         self.userfreqtextbox.setText(str(freq))
