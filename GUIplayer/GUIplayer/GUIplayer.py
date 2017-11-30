@@ -118,9 +118,10 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         #naive overtune filter: Filter0
         Filter0 = np.zeros(D.shape)
         for i in range(0,D.shape[1]):
-            for j in range(40,80):
+            for j in range(40,200):
                 Filter0[j,i]=1
         D = Filter0 * D
+        print D.shape
         Dmax=np.max(D,axis=0)
         Findex = np.zeros(D.shape[1])
         for i in range(0,D.shape[1]):
@@ -149,7 +150,9 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         gain = 440.0/163.0
         #Findex is a list showing the frequecy with highest magnitude corresponging to a certain time flag
         librosa.display.specshow(librosa.amplitude_to_db(D,ref=np.max),y_axis='log', x_axis='time')
+        print Findex
         Findex = Findex * gain
+        print Findex
         xs = [130, 146, 165,175, 196, 220, 247, 261, 293, 329, 349, 391, 440, 493, 523, 587, 659, 698, 783, 880, 987]
         ylabels = ['C3','D3','E3','F3','G3','A3','B3','C4','D4','E4','F4','G4','A4','B4','C5','D5','E5','F5','G5','A5','B5']
         plt.yticks(xs,ylabels)
