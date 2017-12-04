@@ -362,8 +362,8 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
                     Error = Error + abs(RefList[i]-UserList[i])/OnePitch
                     EffectiveCount += 1
             Error = Error / EffectiveCount
-            self.compareSimilarity = 1 - Error
-            similarityStr = "%0.2f" % self.compareSimilarity
+            self.compareSimilarity = (1 - Error)*100
+            similarityStr = "%.1f" % self.compareSimilarity +'%'
             self.similarityText.setText(similarityStr)
             ax.plot(t, UserList,'r',label='User')
             ax.plot(t2, RefList,'b',label = 'Reference')
