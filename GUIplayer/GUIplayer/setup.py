@@ -20,7 +20,7 @@ if sys.platform == 'win32':
 
 options = {
     'build_exe': {
-        'includes': ['atexit','sip','PyQt4.QtCore']
+        'includes': ['atexit','sip','PyQt4.QtCore','PyQt4.QtGui','os','sys','librosa','librosa.display']
     }
 }
 

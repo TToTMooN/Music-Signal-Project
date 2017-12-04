@@ -16,7 +16,7 @@ except ImportError:
             QtGui.QMessageBox.NoButton)
     sys.exit(1)
 
-QtCore.QCoreApplication.setLibraryPaths(['C:\Anaconda2\Lib\site-packages\PyQt4\plugins'])
+QtCore.QCoreApplication.setLibraryPaths(['plugins'])
 # This is the path
 from playerUI import *
 import librosa
