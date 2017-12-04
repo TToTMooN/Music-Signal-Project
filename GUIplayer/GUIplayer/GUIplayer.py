@@ -24,6 +24,8 @@ import librosa.display
 import matplotlib.pyplot as plt
 import numpy as np
 from math import log
+import pyaudio
+import wave
 
 class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
     def __init__(self, parent=None):
@@ -75,6 +77,9 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         self.compareButton.clicked.connect(self.showCompare)
         self.compareButton.setEnabled(False)
         self.isShowingCompare = False
+
+        self.userRecordButton.clicked.connect(self.record)
+        self.userRecordButton.setEnabled(True)
         #init display time
         self.user_current_time = 0
         self.ref_current_time = 0
@@ -295,7 +300,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         displayTime = QtCore.QTime(0,(time / 60000) % 60, (time / 1000) % 60)
         self.refPlayTime.display(displayTime.toString('mm:ss'))
         pos = int(time * self.timeGain)
-        freq = "%0.2f" % self.refFreqList[pos]
+        freq = "%0.0f" % self.refFreqList[pos]
         self.reffreqtextbox.setText(str(freq))
 
     def userSlideValueChange(self):
@@ -303,7 +308,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         displayTime = QtCore.QTime(0,(time / 60000) % 60, (time / 1000) % 60)
         self.userPlayTime.display(displayTime.toString('mm:ss'))
         pos = int(time * self.timeGain)
-        freq = "%0.2f" % self.refFreqList[pos]
+        freq = "%0.0f" % self.refFreqList[pos]
         self.userfreqtextbox.setText(str(freq))
     
     def userTimeChange(self, time):  
@@ -373,6 +378,41 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
             self.refscene.addPixmap(self.comparepixmap)
             self.refGraph.setScene(self.refscene)
             self.isShowingCompare = True
+    def record(self):
+        CHUNK = 1024 
+        FORMAT = pyaudio.paInt16 #paInt8
+        CHANNELS = 1 
+        RATE = 48100 #sample rate
+        RECORD_SECONDS = 10
+        WAVE_OUTPUT_FILENAME = "userRecord.wav"
+
+        p = pyaudio.PyAudio()
+
+        stream = p.open(format=FORMAT,
+                        channels=CHANNELS,
+                        rate=RATE,
+                        input=True,
+                        frames_per_buffer=CHUNK) #buffer
+        print("* recording")
+
+        frames = []
+
+        for i in range(0, int(RATE / CHUNK * RECORD_SECONDS)):
+            data = stream.read(CHUNK)
+            frames.append(data) # 2 bytes(16 bits) per channel
+
+        print("* done recording")
+
+        stream.stop_stream()
+        stream.close()
+        p.terminate()
+
+        wf = wave.open(WAVE_OUTPUT_FILENAME, 'wb')
+        wf.setnchannels(CHANNELS)
+        wf.setsampwidth(p.get_sample_size(FORMAT))
+        wf.setframerate(RATE)
+        wf.writeframes(b''.join(frames))
+        wf.close()
     def quit(self):
         sys.exit()
 
