@@ -23,6 +23,8 @@ import librosa
 import librosa.display
 import matplotlib.pyplot as plt
 import numpy as np
+from math import log
+
 class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
     def __init__(self, parent=None):
         self.graphHeight = 395
@@ -56,6 +58,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         self.actionImport_User_File.triggered.connect(self.addUserFiles)
         self.actionImport_Ref_File.triggered.connect(self.addRefFiles)
         #init sliders
+        self.timeGain = 4370.0/100000.0
         self.userSlider.setValue(0)
         self.userSlider.setEnabled(False)
         self.userSlider.sliderPressed.connect(self.userSlidePress)
@@ -68,7 +71,10 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         #init buttons
         self.userplaybutton.clicked.connect(self.userPlayOrPause)
         self.userplaybutton.setEnabled(False)
-        self.userplaybutton.setEnabled(False)
+        
+        self.compareButton.clicked.connect(self.showCompare)
+        self.compareButton.setEnabled(False)
+        self.isShowingCompare = False
         #init display time
         self.user_current_time = 0
         self.ref_current_time = 0
@@ -103,6 +109,11 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         #init figure
         self.userscene = QtGui.QGraphicsScene()
         self.refscene = QtGui.QGraphicsScene()
+        self.userStartPoint = 0
+        self.userEndPoint = 0
+        self.refStartPoint = 0
+        self.refEndPoint = 0
+        self.similarityText.setText('N/A')
 
     def guide(self):
         QtGui.QMessageBox.information(self, "About the spectrum frequency",
@@ -118,7 +129,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         #naive overtune filter: Filter0
         Filter0 = np.zeros(D.shape)
         for i in range(0,D.shape[1]):
-            for j in range(40,200):
+            for j in range(40,80):
                 Filter0[j,i]=1
         D = Filter0 * D
         print D.shape
@@ -146,13 +157,19 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
             if np.max(D[:,i]) > 0.1*max:
                 endpoint = i
                 break
-        # timegain = 100.0/4370.0
-        gain = 440.0/163.0
+        if saveFileName == 'userplot.png':
+            self.userStartPoint = startpoint
+            self.userEndPoint = endpoint
+        if saveFileName == 'refplot.png':
+            self.refStartPoint = startpoint
+            self.refEndPoint = endpoint
+
+        self.freqgain = 440.0/163.0
         #Findex is a list showing the frequecy with highest magnitude corresponging to a certain time flag
         librosa.display.specshow(librosa.amplitude_to_db(D,ref=np.max),y_axis='log', x_axis='time')
-        print Findex
-        Findex = Findex * gain
-        print Findex
+
+        Findex = Findex * self.freqgain
+
         xs = [130, 146, 165,175, 196, 220, 247, 261, 293, 329, 349, 391, 440, 493, 523, 587, 659, 698, 783, 880, 987]
         ylabels = ['C3','D3','E3','F3','G3','A3','B3','C4','D4','E4','F4','G4','A4','B4','C5','D5','E5','F5','G5','A5','B5']
         plt.yticks(xs,ylabels)
@@ -163,6 +180,11 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         plt.ylabel('')
         plt.title('')
         plt.savefig(saveFileName)
+        dataFileName = saveFileName[0:-4] + 'data'
+        thefile = open(dataFileName, 'w')
+        for item in Findex:
+            print >> thefile, item
+        thefile.close
         return Findex
 
     def addUserFiles(self):
@@ -182,6 +204,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         self.userscene.clear()
         self.userscene.addPixmap(self.userpixmap)
         self.userGraph.setScene(self.userscene)
+        self.compareButton.setEnabled(True)
 
     def addRefFiles(self):
         file = QtGui.QFileDialog.getOpenFileName(self, "Select Ref Input File",
@@ -271,8 +294,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         self.ref_current_time = time
         displayTime = QtCore.QTime(0,(time / 60000) % 60, (time / 1000) % 60)
         self.refPlayTime.display(displayTime.toString('mm:ss'))
-        timeGain = 4370.0/100000.0
-        pos = int(time * timeGain)
+        pos = int(time * self.timeGain)
         freq = "%0.2f" % self.refFreqList[pos]
         self.reffreqtextbox.setText(str(freq))
 
@@ -280,8 +302,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         time = self.userSlider.value()
         displayTime = QtCore.QTime(0,(time / 60000) % 60, (time / 1000) % 60)
         self.userPlayTime.display(displayTime.toString('mm:ss'))
-        timeGain = 4370.0/100000.0
-        pos = int(time * timeGain)
+        pos = int(time * self.timeGain)
         freq = "%0.2f" % self.refFreqList[pos]
         self.userfreqtextbox.setText(str(freq))
     
@@ -297,7 +318,61 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
     def refTotalTimeChange(self, time):
         self.refSlider.setRange(0,time)
+    def showCompare(self):
+        if self.isShowingCompare:
+            self.refscene.addPixmap(self.refpixmap)
+            self.refGraph.setScene(self.refscene)
+            self.isShowingCompare = False
+        else:
+            # plot compare graph
+            with open('userplotdata') as f:
+                Findex = f.read().splitlines()
+            Findex = map(float,Findex)
+            new_list = []
+            for y in Findex:
+                new_list.append(log(y,10))
+            UserList=new_list[self.userStartPoint:self.userEndPoint]#startpoint and endpoint
+            t = np.arange(0.0,len(UserList)*self.timeGain, self.timeGain)
 
+            with open('refplotdata') as f:
+                Findex = f.read().splitlines()
+            Findex = map(float,Findex)
+            new_list2 = []
+            for y in Findex:
+                new_list2.append(log(y,10))
+            RefList=new_list2[self.refStartPoint:self.refEndPoint]#startpoint and endpoint
+            t2 = np.arange(0.0, self.timeGain * len(RefList), self.timeGain)
+            fig, ax = plt.subplots()
+
+            #similarity calculation
+            OnePitch = 0.3/7
+            Error = 0
+            EffectiveCount = 0
+            def bound(input):
+                if input > 1:
+                    imput = 1
+                return
+            for i in range(0,min(len(RefList),len(UserList))):
+                if abs(RefList[i]-UserList[i])<= OnePitch:
+                    Error = Error + abs(RefList[i]-UserList[i])/OnePitch
+                    EffectiveCount += 1
+            Error = Error / EffectiveCount
+            self.compareSimilarity = 1 - Error
+            similarityStr = "%0.2f" % self.compareSimilarity
+            self.similarityText.setText(similarityStr)
+            ax.plot(t, UserList,'r',label='User')
+            ax.plot(t2, RefList,'b',label = 'Reference')
+            plt.xlabel('')
+            plt.ylabel('')
+            plt.title('')
+            plt.legend()
+            plt.savefig('comparePlot.png')
+            self.comparepixmap = QtGui.QPixmap('comparePlot.png')
+            self.comparepixmap = self.comparepixmap.scaledToHeight(self.graphHeight)
+            self.refscene.clear()
+            self.refscene.addPixmap(self.comparepixmap)
+            self.refGraph.setScene(self.refscene)
+            self.isShowingCompare = True
     def quit(self):
         sys.exit()
 
