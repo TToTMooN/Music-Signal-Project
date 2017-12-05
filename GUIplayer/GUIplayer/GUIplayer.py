@@ -367,6 +367,16 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
             self.similarityText.setText(similarityStr)
             ax.plot(t, UserList,'r',label='User')
             ax.plot(t2, RefList,'b',label = 'Reference')
+            xs = [130, 146, 165,175, 196, 220, 247, 261, 293, 329, 349, 391, 440, 493, 523, 587, 659, 698, 783, 880, 987]
+            ylabels = ['C3','D3','E3','F3','G3','A3','B3','C4','D4','E4','F4','G4','A4','B4','C5','D5','E5','F5','G5','A5','B5']
+
+            new_list = []
+            for y in xs:
+                new_list.append(log(y,10))
+
+            plt.yticks(new_list,ylabels)
+            plt.tight_layout()
+            plt.ylim(log(110,10),log(256,10))
             plt.xlabel('')
             plt.ylabel('')
             plt.title('')
