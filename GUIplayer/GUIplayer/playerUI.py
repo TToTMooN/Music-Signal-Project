@@ -175,7 +175,7 @@ class Ui_MainWindow(object):
         self.userRecordButton.setText(_translate("MainWindow", "Record", None))
         self.compareButton.setText(_translate("MainWindow", "Compare", None))
         self.reffreqlabel_2.setText(_translate("MainWindow", "Similarity:", None))
-        self.menuImport.setTitle(_translate("MainWindow", "Import", None))
+        self.menuImport.setTitle(_translate("MainWindow", "Menu", None))
         self.actionImport_Ref_File.setText(_translate("MainWindow", "Import Ref File", None))
         self.actionImport_User_File.setText(_translate("MainWindow", "Import User File", None))
         self.actionGuide_Book.setText(_translate("MainWindow", "Guide Book", None))

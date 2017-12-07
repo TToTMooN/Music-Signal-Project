@@ -59,6 +59,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         
         self.actionImport_User_File.triggered.connect(self.addUserFiles)
         self.actionImport_Ref_File.triggered.connect(self.addRefFiles)
+        self.actionGuide_Book.triggered.connect(self.guide)
         #init sliders
         self.timeGain = 4370.0/100000.0
         self.userSlider.setValue(0)
@@ -121,8 +122,11 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         self.similarityText.setText('N/A')
 
     def guide(self):
-        QtGui.QMessageBox.information(self, "About the spectrum frequency",
-                "This is the guide for notes and frequency correspondence")
+        guideMsgBox = QtGui.QMessageBox()
+        guideMsgBox.setWindowTitle("Guide")
+        guideMsgBox.setTextFormat(1)
+        guideMsgBox.setText("<a href='https://docs.google.com/document/d/19rf077rTy91kSGfstqGJvhc5KzZvUzb86yi2kwOYAnA/edit'>Online Guide Book</a>")
+        guideMsgBox.exec_()
     def my_range(self, start, end, step):
         while start != end:
             yield start
@@ -191,7 +195,6 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
             print >> thefile, item
         thefile.close
         return Findex
-
     def addUserFiles(self):
         file = QtGui.QFileDialog.getOpenFileName(self, "Select User Input File",
                 QtGui.QDesktopServices.storageLocation(QtGui.QDesktopServices.MusicLocation))
@@ -210,7 +213,6 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         self.userscene.addPixmap(self.userpixmap)
         self.userGraph.setScene(self.userscene)
         self.compareButton.setEnabled(True)
-
     def addRefFiles(self):
         file = QtGui.QFileDialog.getOpenFileName(self, "Select Ref Input File",
                 QtGui.QDesktopServices.storageLocation(QtGui.QDesktopServices.MusicLocation))
